@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html>
+	<!--
+	<html manifest='app.manifest'>
+	-->
+	<head>
+		<meta charset="utf-8">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="viewport" content="initial-scale = 1.0, user-scalable = no">
+		<title>To Do List</title>
+		<link rel="stylesheet" href="libs/jquery.mobile-1.2.0.css">
+		<script src="libs/jquery-1.8.3.js"></script>
+		<script src="libs/jquery.mobile-1.2.0.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div data-role="page" id="taskPage" data-theme="b">
+				<div data-role="header" data-position="fixed" data-theme="b">
+					<h1>Tasks</h1>
+					<a href="#taskFormPage" data-role="button" data-transition="slide" data-icon="plus" id="newTaskButton" class="ui-btn-right"> New </a>
+				</div>
+
+				<div data-role="content">
+					<ul data-role="listview" data-filter="true" data-inset="true" id="tasklist" data-theme="c"></ul>
+					<label for='taskChecklistSelect'>Select checklists</label>
+					<select id='taskChecklistSelect' name='taskChecklistSelect' multiple data-native-menu='false'></select>
+				</div>
+
+				<div data-role='footer' data-position='fixed'>
+					<div data-role="navbar">
+						<ul>
+							<li>
+								<a href='#taskPage' data-icon='home'>Tasks</a>
+							</li>
+							<li>
+								<a href='#checklistPage'>Checklists</a>
+							</li>
+							<li>
+								<a href='#settingsPage'>Settings</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div data-role="page" id="taskFormPage" data-theme="b">
+				<div data-role="header" data-position="fixed" data-theme="b">
+					<h1>Task</h1>
+					<a href="#taskPage" data-role="button" data-transition="slide" data-direction="reverse" id='cancelTaskButton'>Cancel</a>
+					<a href="#taskPage" data-role="button" class="ui-btn-right" data-transition="slide" data-direction="reverse"
+					id='saveTaskButton'>Save</a>
+				</div>
+				<div data-role="content">
+					<form action="" method="post" id="form">
+						<ul data-role="listview" id="taskDetailsFields">
+							<li data-role="list-divider">
+								Task details:
+							</li>
+							<li data-role="fieldcontainer">
+								<label for="taskName">Name:</label>
+								<input type="text" name="taskName" id="taskName" value="" autofocus placeholder='Task name'/>
+							</li>
+							<li data-role="fieldcontainer">
+								<label for="due-date">Due Date</label>
+								<input type="date" id="due-date" name="due-date">
+							</li>
+							<li data-role="fieldcontainer">
+								<label for="taskDescription">Description:</label>
+								<textarea cols="40" rows="8" name="taskDescription" id="taskDescription" placeholder='Task description'></textarea>
+							</li>
+
+							<li data-role='fieldcontainer'>
+								<label for='taskFormChecklistSelect'>Checklist</label>
+								<select id='taskFormChecklistSelect' name='taskFormChecklistSelect' multiple data-native-menu='false'></select>
+							</li>
+							<li data-role="list-divider">
+								Attach
+							</li>
+							<div data-role="button" data-inline="true" id="Photo">
+								Photo
+							</div>
+							<div data-role="button" data-inline="true" id="Audio">
+								Audio
+							</div>
+							<div data-role="button" data-inline="true" id="QR">
+								QR
+							</div>
+
+							<li data-role='list-divider'>
+								Completion Status
+							</li>
+
+							<li>
+								<label for="taskDone">Done</label>
+								<input type='checkbox' id='taskDone' name='taskDone'>
+							</li>
+
+							<li>
+								Date: <div id='taskDoneDate'></div>
+							</li>
+
+							<li>
+								Lattitude: <div id='taskDoneLat'></div>
+							</li>
+
+							<li>
+								Longitude: <div id='taskDoneLong'></div>
+							</li>
+
+							<a data-role='button' href='#taskPage' data-transition='slide' data-direction='reverse' data-theme='e' id='deleteTaskButton'> Delete </a>
+
+						</ul>
+					</form>
+				</div>
+			</div>
+
+			<div data-role="page" id="checklistPage" data-theme="b">
+				<div data-role="header" data-position="fixed" data-theme="b">
+					<h1>Checklists</h1>
+					<a href="#checklistFormPage" data-role="button" data-transition="slide" data-icon="plus" id="newChecklistButton" class="ui-btn-right"> New </a>
+				</div>
+
+				<div data-role="content">
+					<ul data-role="listview" data-filter="true" data-inset="true" id="checklist" data-theme="c"></ul>
+				</div>
+
+				<div data-role='footer' data-position='fixed'>
+					<div data-role="navbar">
+						<ul>
+							<li>
+								<a href='#taskPage' data-icon='home'>Tasks</a>
+							</li>
+							<li>
+								<a href='#checklistPage'>Checklists</a>
+							</li>
+							<li>
+								<a href='#settingsPage'>Settings</a>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div data-role="page" id="checklistFormPage" data-theme="b">
+				<div data-role="header" data-position="fixed" data-theme="b">
+					<h1>Checklist</h1>
+					<a href="#checklistPage" data-role="button" data-transition="slide" data-direction="reverse" id='cancelChecklistButton'>Cancel</a>
+					<a href="#checklistPage" data-role="button" data-transition="slide" data-direction="reverse" id='saveChecklistButton' class="ui-btn-right">Save</a>
+				</div>
+				<div data-role="content">
+					<form action="" method="post" id="form">
+						<ul data-role="listview" id="checklistDetailsFields">
+							<li data-role="list-divider">
+								Checklist details:
+							</li>
+							<li data-role="fieldcontainer">
+								<label for="checklistName">Name:</label>
+								<input type="text" name="checklistName" id="checklistName" value="" autofocus placeholder='Checklist name'/>
+							</li>
+							<li data-role="fieldcontainer">
+								<label for="checklistDescription">Description:</label>
+								<textarea cols="40" rows="8" name="checklistDescription" id="checklistDescription" placeholder='Checklist description'></textarea>
+							</li>
+
+							<a data-role='button' href='#checklistPage' data-transition='slide' data-direction='reverse' data-theme='e' id='deleteChecklistButton'> Delete </a>
+						</ul>
+					</form>
+				</div>
+			</div>
+			<div data-role="page" id="settingsPage" data-add-back-button='true' data-theme="b">
+				<div data-role="header" data-position="fixed" data-theme="b">
+					<h1>Settings</h1>
+				</div>
+
+				<div data-role="content">
+					<legend>
+						<h2>Database</h2>
+					</legend>
+					<div data-role='controlgroup' data-type='horizontal'>
+						<div data-role="button" data-inline="true" id="resetDatabase">
+							Reset
+						</div>
+						<div data-role="button" data-inline="true" id="populateDatabase">
+							Populate
+						</div>
+					</div>
+
+					<legend>
+						<h2>Authentication</h2>
+					</legend>
+					<div data-role='fieldcontainer'>
+						<label for='email'>Email:</label>
+						<input type='email' id='email' name='email'>
+						<label for='password'>Password:</label>
+						<input type='password' id='password' name='password'>
+					</div>
+
+					<div data-role='controlgroup' data-type='horizontal'>
+						<div data-role="button" data-inline="true" id="loginButton">
+							Login
+						</div>
+						<div data-role="button" data-inline="true" id="logoutButton">
+							Logout
+						</div>
+						<div data-role="button" data-inline="true" id="registerButton">
+							Register
+						</div>
+						<div data-role="button" data-inline="true" id="passwordResetButton">
+							Password Reset
+						</div>
+
+					</div>
+					<legend>
+						<h2>Backend</h2>
+					</legend>
+					<div data-role='controlgroup' data-type='vertical'>
+						<label for='localStorage'>localStorage</label>
+						<input type='radio' id='localStorage' name='backend' value='localStorage'>
+
+						<label for='Parse'>Parse</label>
+						<input type='radio' id='Parse' name='backend' value='Parse'>
+					</div>
+				</div>
+
+				<div data-role='footer' data-position='fixed'>
+					<div data-role="navbar">
+						<ul>
+							<li>
+								<a href='#taskPage' data-icon='home'>Tasks</a>
+							</li>
+							<li>
+								<a href='#checklistPage'>Checklists</a>
+							</li>
+							<li>
+								<a href='#settingsPage'>Settings</a>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</body>
+</html>
